@@ -23,8 +23,8 @@ const defaultProjects: Project[] = [
       "A comprehensive toolchain for the SIC/XE architecture, featuring a two-pass assembler, loader,linker, disassembler, and an interactive TUI-based debugger.",
     image: "/project/project1.png",
     link: "https://github.com/SWASTIC-7/HexE",
-    backgroundColor: "#8B4513",
-    blobColor: "#681516"
+    backgroundColor: "#865b3dff",
+    blobColor: "#621a1bff"
   },
   {
     title: "0xtcp",
@@ -34,7 +34,7 @@ const defaultProjects: Project[] = [
     image: "/project/project2.png",
     link: "https://github.com/SWASTIC-7/0xtcp",
     backgroundColor: "#2E8B57",
-    blobColor: "#0A6262"
+    blobColor: "#0d6161ff"
   },
   {
     title: "Nyx",
@@ -44,7 +44,7 @@ const defaultProjects: Project[] = [
     image: "/project/project3.png",
     link: "https://github.com/SWASTIC-7/Nyx",
     backgroundColor: "#8A2BE2",
-    blobColor: "#711B68"
+    blobColor: "#671a5fff"
   },
   {
     title: "OpEx",
@@ -64,7 +64,7 @@ const defaultProjects: Project[] = [
     image: "/project/project5.png",
     link: "https://github.com/SWASTIC-7/MemeMoney",
     backgroundColor: "#4169E1",
-    blobColor: "#816426ff"
+    blobColor: "#6f5620ff"
   },
   {
     title: "RELICS.ai",
@@ -73,8 +73,8 @@ const defaultProjects: Project[] = [
     description: "RELICS: The Lost Protocol is a bold experiment where cutting-edge AI meets blockchain security in a thrilling game of wits.",
     image: "/project/project6.png",
     link: "https://github.com/KapilSareen/RELICS.ai",
-    backgroundColor: "#DC143C",
-    blobColor: "#174E47"
+    backgroundColor: "#84172dff",
+    blobColor: "#2f5c56ff"
   },
   {
     title: "DARK LIGHT",
@@ -84,7 +84,7 @@ const defaultProjects: Project[] = [
     image: "/project/project7.png",
     link: "https://gaymer-001.itch.io/darklight",
     backgroundColor: "#4682B4",
-    blobColor: "#7c215eff"
+    blobColor: "#77205aff"
   }
 ];
 

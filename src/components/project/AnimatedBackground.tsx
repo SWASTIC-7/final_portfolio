@@ -163,6 +163,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ backgroundColor
   }, [blobColor]); // Re-run when blobColor changes
 
   return (
+    
     <div className="background-container">
       <div 
         className="background-gradient"
