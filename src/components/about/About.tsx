@@ -44,22 +44,17 @@ function About() {
       }
     }
     
-    // Create a timeline for smooth sequential animation
-    const tl = gsap.timeline({ 
-      defaults: { ease: "power3.out" },
-      scrollTrigger: {
-        trigger: '.About',
-        start: 'top center',
-        once: true
-      }
-    });
-    
     // Set initial state for both sets of lines
     gsap.set([...lines, ...catchyLines], { 
       opacity: 0, 
       y: 50,
       rotationX: -45,
       transformOrigin: "center center"
+    });
+
+    // Create a timeline for smooth sequential animation - start immediately
+    const tl = gsap.timeline({ 
+      defaults: { ease: "power3.out" }
     });
 
     // Animate strips sliding away
@@ -145,7 +140,7 @@ function About() {
 
   return (
     <div className='About' style={{ position: 'relative', overflow: 'hidden' }}>
-        <div ref={stripsContainerRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 100 }}></div>
+            <div ref={stripsContainerRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 100 }}></div>
        
                 <div  className="man-container" ref={manRef}>
                   <div ref={radarRef}>

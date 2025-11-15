@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import Project from '../components/project/project';
 import Contact from '../components/contact/contact';
+import About from '../components/about/About';
+import Home from '../components/home/home';
+
 import './Swastic.css'
 
 function Swastic() {
@@ -8,8 +11,12 @@ function Swastic() {
 
   return (
     <>
-     <Project />
+      <div className='wrapper'>
+      <Home />
+      <About />
+     {/* <Project /> */}
      <Contact />
+     </div>
     </>
   )
 }
