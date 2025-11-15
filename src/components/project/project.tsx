@@ -148,10 +148,14 @@ export default function PortfolioSection({ projects = defaultProjects }: { proje
     const movetoGithub = () => {
     window.open("https://github.com/SWASTIC-7", "_blank");
     }
+    const handleback = () => {
+    window.history.back();
+    }
   return (
     <div className="portfolio-section">
       <AnimatedBackground backgroundColor={project.backgroundColor} blobColor={project.blobColor} />
       <div className="portfolio-content">
+        <div className="back" onClick={handleback}>BACK</div>
         <div className="Github" onClick={movetoGithub}>GITHUB</div>
         <ProjectDetail project={project} fade={fade} />
         <div className="bottom-left">

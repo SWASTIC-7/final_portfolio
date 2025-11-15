@@ -18,7 +18,6 @@ function Swastic() {
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showSoundPrompt, setShowSoundPrompt] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -74,20 +73,6 @@ function Swastic() {
     };
   }, []);
 
-  const handleEnableSound = () => {
-    if (audioRef.current) {
-      audioRef.current.play()
-        .then(() => {
-          setIsPlaying(true);
-          setShowSoundPrompt(false);
-        })
-        .catch((error) => {
-          console.error('Audio play failed:', error);
-          setShowSoundPrompt(false); // Hide prompt even if play fails
-        });
-    }
-  };
-
   const toggleAudio = () => {
     if (!audioRef.current) return;
 
@@ -107,20 +92,6 @@ function Swastic() {
     <>
       <div className='wrapper'>
         <audio ref={audioRef} src="/audio.mp3" preload="auto" />
-        
-        {/* Sound enable prompt overlay */}
-        {showSoundPrompt && (
-          <div className="sound-prompt-overlay" onClick={handleEnableSound}>
-            <div className="sound-prompt-content">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-              </svg>
-              <p>Click anywhere to enable sound</p>
-            </div>
-          </div>
-        )}
         
         {/* Floating music control button */}
         <button className="music-control" onClick={toggleAudio}>
