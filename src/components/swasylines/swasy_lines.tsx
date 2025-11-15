@@ -16,44 +16,52 @@ function SwasyLine({
 }: SwasyLineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
+  const scrollTriggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const images = imagesRef.current.filter(Boolean) as HTMLImageElement[];
     
     if (images.length === 0 || !containerRef.current) return;
 
-    // Pin the container during animation
-    ScrollTrigger.create({
+    // Pin the container during animation with reduced space
+    const pinTrigger = ScrollTrigger.create({
       trigger: containerRef.current,
-      start: 'center center',
-      end: '+=100%',
+      start: 'top bottom',
+      end: 'center bottom',
       pin: true,
-      scrub: false,
+      scrub: 1,
+      anticipatePin: 1,
     });
+    scrollTriggersRef.current.push(pinTrigger);
 
     // Animate all images
     images.forEach((img) => {
       const isMiddle = img.classList.contains('middle-image');
 
-      gsap.fromTo(
+      const tween = gsap.fromTo(
         img,
         { x: 0, rotation: 0 },
         {
           x: 300,
           rotation: isMiddle ? 360 : 0,
-          ease: 'none',
+          ease: 'power2.inOut',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'center center',
-            end: '+=100%',
+            start: 'top bottom',
+            end: 'bottom top',
             scrub: 1,
           },
         }
       );
+      
+      if (tween.scrollTrigger) {
+        scrollTriggersRef.current.push(tween.scrollTrigger);
+      }
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      scrollTriggersRef.current.forEach(trigger => trigger.kill());
+      scrollTriggersRef.current = [];
     };
   }, [middleImages, repeatCount]);
 

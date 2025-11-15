@@ -62,9 +62,9 @@ function LogoLoader({ startAnimation, onLoaded, progress = 0 }: { startAnimation
       camera={{ position: [50, 0, 0], fov: 40 }}
       style={{ backgroundColor: '#0d1117' }}
     >
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={0.5} />
       <directionalLight position={[30, 10, 0]} />
-      <Logo url="/loader.glb" startAnimation={startAnimation} />
+      <Logo url="/try2.glb" startAnimation={startAnimation} />
       <OrbitControls target={[0, 0, 0]} />
     </Canvas>
     <div className='Number'>{Math.floor(progress)}%</div>

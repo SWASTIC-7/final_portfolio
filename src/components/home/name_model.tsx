@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import { Group, PointLight, Vector3, Vector2 } from 'three';
+import { Group, PointLight,Vector2 } from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -14,6 +14,7 @@ interface LogoProps {
 function Logo({ url }: LogoProps) {
   const { scene } = useGLTF(url);
   const groupRef = useRef<Group>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
   // Preserve original rotation from GLTF
   React.useEffect(() => {
@@ -29,42 +30,28 @@ function Logo({ url }: LogoProps) {
       const outerRight = scene.getObjectByName('Outer_Right');
 
       // Store original positions
-      const originalPositions = {
-        innerLeft: innerLeft ? { ...innerLeft.position } : null,
-        innerRight: innerRight ? { ...innerRight.position } : null,
-        outerLeft: outerLeft ? { ...outerLeft.position } : null,
-        outerRight: outerRight ? { ...outerRight.position } : null,
-      };
+      // const originalPositions = {
+      //   innerLeft: innerLeft ? { ...innerLeft.position } : null,
+      //   innerRight: innerRight ? { ...innerRight.position } : null,
+      //   outerLeft: outerLeft ? { ...outerLeft.position } : null,
+      //   outerRight: outerRight ? { ...outerRight.position } : null,
+      // };
 
       // Create scroll trigger animation
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: 'body',
+          trigger: '.Home',
           start: 'top top',
           end: '70% top',
           scrub: 2,
           markers: false,
-        //   onLeave: () => {
-        //     // Smoothly return to original position when scrolling past
-        //     gsap.to([innerLeft?.position, outerLeft?.position, innerRight?.position, outerRight?.position].filter(Boolean), {
-        //       x: function(index, target) {
-        //         const objName = Object.keys(originalPositions)[index];
-        //         return originalPositions[objName as keyof typeof originalPositions]?.x || 0;
-        //       },
-        //       z: function(index, target) {
-        //         const objName = Object.keys(originalPositions)[index];
-        //         return originalPositions[objName as keyof typeof originalPositions]?.z || 0;
-        //       },
-        //       duration: 1.5,
-        //       ease: 'power2.inOut'
-        //     });
-        //   },
-        //   onEnterBack: () => {
-        //     // Resume scroll animation when scrolling back
-        //     tl.restart();
-        //   }
         }
       });
+
+      // Store the ScrollTrigger instance
+      if (tl.scrollTrigger) {
+        scrollTriggerRef.current = tl.scrollTrigger;
+      }
 
       // Animate left models to move left (negative Z for depth)
       if (innerLeft) {
@@ -96,7 +83,9 @@ function Logo({ url }: LogoProps) {
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (scrollTriggerRef.current) {
+        scrollTriggerRef.current.kill();
+      }
     };
   }, [scene]);
 
@@ -168,7 +157,7 @@ interface SwasticModelProps {
 }
 
 function SwasticModel({ 
-  modelUrl = '/name.glb',
+  modelUrl = '/try.glb',
   backgroundColor = '#000000ff',
   cameraPosition = [50, 0, 0],
   cameraFov = 40
@@ -179,7 +168,7 @@ function SwasticModel({
       style={{ backgroundColor, width: '100%', height: '100vh' }}
       shadows
     >
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={1} />
       <directionalLight position={[30, 10, 0]} intensity={0.2} />
       <directionalLight position={[-30, -10, 0]} intensity={0.1} />
       <CursorLight />

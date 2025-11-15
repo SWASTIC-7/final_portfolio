@@ -1,6 +1,6 @@
 .swasy_line {
   width: 100%;
-  height: 20vh;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,8 +21,8 @@
 
 .swasy_line__image-wrapper {
   flex-shrink: 0;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
