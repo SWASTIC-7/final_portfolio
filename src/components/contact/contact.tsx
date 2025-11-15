@@ -30,15 +30,15 @@ const logoMapping: Record<string, string> = {
 };
 
 const logoLinks: Record<string, string> = {
-  '9-8': 'https://linkedin.com/in/yourprofile',
-  '9-14': 'https://github.com/yourusername',
-  '9-20': 'https://twitter.com/yourhandle',
-  '9-26': 'https://discord.com/users/youruserid',
-  '9-32': 'mailto:your.email@example.com',
+  '9-8': 'https://www.linkedin.com/in/swastic-keshari-77418827a/',
+  '9-14': 'https://github.com/SWASTIC-7',
+  '9-20': 'https://x.com/swastic_07',
+  '9-26': 'https://tinyurl.com/swastic-discord',
+  '9-32': 'https://mail.google.com/mail/?view=cm&fs=1&to=incredibleswastic@gmail.com',
 };
 
 export const Contact = () => (
-  <div style={{ margin: 0,height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', position: 'relative', background: '#000' }}>
+  <div className="Contact" style={{ margin: 0,height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', position: 'relative', background: '#000' }}>
     <Cubes 
       cubeSize={25}
       maxAngle={120}

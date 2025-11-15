@@ -1,6 +1,6 @@
 // Radar.tsx
 import React from "react";
-import "./Radar.css";
+import "./radar.css";
 
 const Radar: React.FC = () => {
   return (

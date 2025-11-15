@@ -71,11 +71,23 @@
   color: rgba(255, 255, 255, 0.9);
   transform: translateY(-2px);
 }
-/* 
 
-
-.nav-item.active::before {
-  opacity: 0;
+/* Animated shiny border effect */
+.navbar-border-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50px;
+  padding: 2px;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: background 0.15s ease-out;
 }
 
 /* Responsive Design */

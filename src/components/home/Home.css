@@ -7,3 +7,12 @@
     background-color: black;
 
 }
+.Name_model {
+    position: absolute;
+    width: 100vw;
+    overflow: hidden;
+}
+.Name_model img {
+    transform: translateY(-70%);
+    filter: grayscale(100%)
+}

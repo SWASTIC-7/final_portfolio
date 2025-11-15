@@ -93,6 +93,12 @@ export default function PortfolioSection({ projects = defaultProjects }: { proje
   const [fade, setFade] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Reset to first project and scroll to top on mount
+  useEffect(() => {
+    setIndex(0);
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const onScroll = () => {
       const scrollY = window.scrollY;
@@ -154,9 +160,9 @@ export default function PortfolioSection({ projects = defaultProjects }: { proje
             <div className="number">
               <span>{index + 1}</span>/<span>{projects.length}</span>
             </div>
-            <div className="arrows">
-              ← → {/* You can hook up navigation here */}
-            </div>
+            {/* <div className="arrows">
+              ← → 
+            </div> */}
             <div className="label-bottom">NUMBER</div>
           </div>
           <div className="intro">

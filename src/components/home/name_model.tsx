@@ -163,9 +163,10 @@ function SwasticModel({
   cameraFov = 40
 }: SwasticModelProps) {
   return (
+    <div className='Name_model'>
     <Canvas
       camera={{ position: cameraPosition, fov: cameraFov }}
-      style={{ backgroundColor, width: '100%', height: '100vh' }}
+      style={{ backgroundColor, width: '100vw', height: '100vh' }}
       shadows
     >
       <ambientLight intensity={1} />
@@ -181,6 +182,8 @@ function SwasticModel({
         enablePan={false}
       />
     </Canvas>
+    <img src='/mesh2.svg'></img>
+    </div>
   );
 }
 

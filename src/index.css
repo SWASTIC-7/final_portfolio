@@ -66,3 +66,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* For IE */
+* {
+  -ms-overflow-style: none;
+}

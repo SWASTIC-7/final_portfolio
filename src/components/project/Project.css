@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 50;
   }
   
   .text-content {
@@ -133,8 +134,8 @@
   }
   
   .circle-counter {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border: 1px solid #ffffff;
     border-radius: 50%;
     display: flex;
@@ -153,14 +154,15 @@
   
   .circle-counter .label,
   .circle-counter .label-bottom {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     opacity: 0.6;
     transition: opacity 0.3s ease;
   }
   
   .circle-counter .number {
-    font-size: 2rem;
+    font-size: 4rem;
     margin: 0.5rem 0;
+    color: #c0c0c0;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
@@ -176,15 +178,17 @@
     position: absolute;
     bottom: 2rem;
     right: 3rem;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .preview-img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* filter: grayscale(100%); */
+    opacity: 0.8;
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
   

@@ -1,0 +1,352 @@
+.manly {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    overflow: hidden;
+    padding: 50px 20px;
+    perspective: 1000px;
+}
+
+.project-heading {
+    font-size: 7rem;
+    font-weight: 900;
+    color: #C0C0C0;
+    text-align: center;
+    margin-bottom: 80px;
+    letter-spacing: -0.02em;
+    transform-style: preserve-3d;
+    z-index: 1;
+    color: transparent;                
+  -webkit-text-stroke-width: 2px;   
+  -webkit-text-stroke-color: #c0c0c0;
+  transition: text-shadow 0.3s ease;
+    font-family: "Quantico", sans-serif;
+    position: absolute;
+    left: 0;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.char2 {
+    display: inline-block;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.char-project {
+    display: inline-block;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+}
+
+.image-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    max-width: 600px;
+    z-index: 5;
+    
+}
+
+.project-image {
+    position: relative;
+    width: 50%;
+    height: auto;
+    max-width: 500px;
+    transform: translateY(40px);
+    z-index: 10;
+    filter: drop-shadow(0 10px 30px rgba(192, 192, 192, 0.3));
+    transform-style: preserve-3d;
+}
+
+.halo-effect {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    z-index: 1;
+}
+
+.halo-line {
+    position: absolute;
+    width: 2px;
+    height: 150%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(192, 192, 192, 0.8) 20%,
+        rgba(192, 192, 192, 0.8) 80%,
+        transparent
+    );
+    box-shadow: 
+        0 0 10px rgba(192, 192, 192, 0.6),
+        0 0 20px rgba(192, 192, 192, 0.4),
+        0 0 30px rgba(192, 192, 192, 0.2);
+    animation: lineGlow 3s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+.halo-line-1 {
+    transform: rotate(0deg);
+    animation-delay: 0s;
+}
+
+.halo-line-2 {
+    transform: rotate(30deg);
+    animation-delay: 0.2s;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(169, 169, 169, 0.7) 20%,
+        rgba(169, 169, 169, 0.7) 80%,
+        transparent
+    );
+}
+
+.halo-line-3 {
+    transform: rotate(60deg);
+    animation-delay: 0.4s;
+}
+
+.halo-line-4 {
+    transform: rotate(90deg);
+    animation-delay: 0.6s;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(211, 211, 211, 0.7) 20%,
+        rgba(211, 211, 211, 0.7) 80%,
+        transparent
+    );
+}
+
+.halo-line-5 {
+    transform: rotate(120deg);
+    animation-delay: 0.8s;
+}
+
+.halo-line-6 {
+    transform: rotate(150deg);
+    animation-delay: 1s;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(169, 169, 169, 0.7) 20%,
+        rgba(169, 169, 169, 0.7) 80%,
+        transparent
+    );
+}
+
+@keyframes lineGlow {
+    0%, 100% {
+        opacity: 0.4;
+        filter: blur(2px);
+    }
+    50% {
+        opacity: 0.9;
+        filter: blur(1px);
+    }
+}
+
+/* Button styles */
+.projects-button {
+  position: relative;
+  /* margin-top: 15%; */
+  top: 10%;
+  padding: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: visible;
+  z-index: 10;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+  border-radius: 50px;
+}
+
+/* Animated glowing border */
+
+
+/* .projects-button:hover::before {
+  opacity: 1;
+} */
+
+/* @keyframes borderRotate {
+  0% {
+    --angle: 0deg;
+    transform: rotate(0deg);
+  }
+  100% {
+    --angle: 360deg;
+    transform: rotate(360deg);
+  }
+} */
+
+/* Cursor-following glow effect */
+.projects-button::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(
+    200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(192, 192, 192, 0.6),
+    transparent 60%
+  );
+  border-radius: 50px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.projects-button:hover::after {
+  opacity: 1;
+}
+
+.button-border-gradient {
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(
+    calc(var(--angle, 0deg)),
+    rgba(192, 192, 192, 0.8) 0%,
+    rgba(224, 224, 224, 1) 50%,
+    rgba(168, 168, 168, 0.8) 100%
+  );
+  border-radius: 50px;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+  animation: borderRotate 3s linear infinite;
+}
+
+.button-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 36px;
+  background: rgba(10, 10, 10, 0.98);
+  border-radius: 48px;
+  transform: translateZ(10px);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.projects-button:hover .button-inner {
+  background: rgba(20, 20, 20, 0.98);
+  transform: translateZ(12px);
+  box-shadow: 
+    0 15px 40px rgba(192, 192, 192, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.projects-button:active .button-inner {
+  transform: translateZ(5px);
+}
+
+.button-text {
+  position: relative;
+  color: #C0C0C0;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Quantico", sans-serif;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+.button-shine {
+  position: absolute;
+  inset: 2px;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.08),
+    transparent 50%
+  );
+  border-radius: 48px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.projects-button:hover .button-shine {
+  opacity: 1;
+}
+
+.button-arrow {
+  width: 18px;
+  height: 18px;
+  stroke: #C0C0C0;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 4px rgba(192, 192, 192, 0.4));
+}
+
+.projects-button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+/* Remove old button glow animation */
+.button-glow {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .project-heading {
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        margin-bottom: 60px;
+    }
+
+    .image-container {
+        max-width: 400px;
+    }
+
+    .project-image {
+        max-width: 350px;
+    }
+
+    .halo-effect {
+        width: 130%;
+        height: 130%;
+    }
+
+    .projects-button {
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-container {
+        max-width: 300px;
+    }
+
+    .project-image {
+        max-width: 280px;
+    }
+}

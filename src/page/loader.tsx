@@ -3,6 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { Group } from 'three'
 import './Loader.css'
+import { useState } from 'react'
 
 function Logo({ url, startAnimation }: { url: string; startAnimation: boolean }) {
   const { scene } = useGLTF(url)
@@ -30,13 +31,13 @@ function Logo({ url, startAnimation }: { url: string; startAnimation: boolean })
 
     // Swastik rotation
     if (swastikRef.current) {
-      const speed = Math.abs(Math.sin(timeRef.current * 2)) * 0.1
+      const speed = Math.abs(Math.sin(timeRef.current * 2)) * 0.08
       swastikRef.current.rotation.x -= speed
     }
 
     // Animate translation only after loading is complete
     if (startAnimation) {
-      const moveSpeed = 0.05
+      const moveSpeed = 0.2
 
       if (innerRightRef.current) innerRightRef.current.position.z -= moveSpeed
       if (outerRightRef.current) outerRightRef.current.position.z -= moveSpeed
@@ -50,9 +51,12 @@ function Logo({ url, startAnimation }: { url: string; startAnimation: boolean })
 }
 
 function LogoLoader({ startAnimation, onLoaded, progress = 0 }: { startAnimation: boolean, onLoaded?: () => void, progress?: number }) {
+  const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
     if (progress === 100 && startAnimation && onLoaded) {
       onLoaded();
+      setIsLoaded(true)
     }
   }, [startAnimation, onLoaded, progress]);
 
@@ -67,7 +71,9 @@ function LogoLoader({ startAnimation, onLoaded, progress = 0 }: { startAnimation
       <Logo url="/try2.glb" startAnimation={startAnimation} />
       <OrbitControls target={[0, 0, 0]} />
     </Canvas>
-    <div className='Number'>{Math.floor(progress)}%</div>
+    {!isLoaded && (
+      <div className='Number'>{Math.floor(progress)}%</div>
+    )}
     
     </div>
     

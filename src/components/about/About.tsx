@@ -79,11 +79,11 @@ function About() {
       duration: 1.2,
       stagger: 0.3,
     }, "-=0.8")
-    .to(lines, {
-      textShadow: "0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)",
-      duration: 0.8,
-      stagger: 0.2,
-    }, "-=0.6")
+    // .to(lines, {
+    //   textShadow: "0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)",
+    //   duration: 0.8,
+    //   stagger: 0.2,
+    // }, "-=0.6")
     .to(catchyLines, {
       opacity: 1,
       y: 0,
@@ -91,11 +91,11 @@ function About() {
       duration: 1.2,
       stagger: 0.3,
     }, "-=0.3")
-    .to(catchyLines, {
-      textShadow: "0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)",
-      duration: 0.8,
-      stagger: 0.2,
-    }, "-=0.6");
+    // .to(catchyLines, {
+    //   textShadow: "0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)",
+    //   duration: 0.8,
+    //   stagger: 0.2,
+    // }, "-=0.6");
 
     // Create ScrollTrigger that plays the timeline
     ScrollTrigger.create({
@@ -160,7 +160,7 @@ function About() {
 
   return (
     <div className='About' ref={aboutRef} style={{ position: 'relative', overflow: 'hidden' }}>
-        <div ref={stripsContainerRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 100 }}></div>
+        <div ref={stripsContainerRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 150 }}></div>
        
         <div className="man-container" ref={manRef}>
           <div ref={radarRef}>
@@ -171,9 +171,9 @@ function About() {
 
         <div className='About_decription'>
           <h3>
-            <span ref={line1Ref} style={{ display: 'inline-block' }}>Every Light counts</span><br/>
-            <span ref={line2Ref} style={{ display: 'inline-block' }}>when you build</span><br/>
-            <span ref={line3Ref} style={{ display: 'inline-block' }}>in the dark...</span>
+            <span ref={line1Ref} style={{ display: 'inline-block' }}>EVERY LIGHT COUNTS</span><br/>
+            <span ref={line2Ref} style={{ display: 'inline-block' }}>WHEN YOU BUILD</span><br/>
+            <span ref={line3Ref} style={{ display: 'inline-block' }}>IN THE DARK...</span>
           </h3>
         </div>
 
