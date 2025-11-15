@@ -5,4 +5,131 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
-}   
+}
+
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.mobile-overlay::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveGrid 20s linear infinite;
+}
+
+@keyframes moveGrid {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+.mobile-content {
+  text-align: center;
+  padding: 2rem;
+  max-width: 500px;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-content svg:first-child {
+  color: #c0c0c0;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.5));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.mobile-content h1 {
+  font-family: "Quantico", sans-serif;
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+.mobile-content p {
+  font-family: "Quantico", sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.device-icon {
+  margin-top: 3rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.device-icon svg {
+  color: rgba(255, 255, 255, 0.3);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+@media (max-width: 480px) {
+  .mobile-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .mobile-content p {
+    font-size: 0.9rem;
+  }
+  
+  .mobile-content svg:first-child {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .device-icon svg {
+    width: 50px;
+    height: 50px;
+  }
+}

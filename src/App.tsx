@@ -11,7 +11,22 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [startAnimation, setStartAnimation] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const location = useLocation()
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      const isSmallScreen = window.innerWidth <= 768
+      setIsMobile(isMobileDevice || isSmallScreen)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Scroll to top on route change
   useEffect(() => {
@@ -125,7 +140,26 @@ function App() {
 
   return (
     <>
-      {isLoading ? (
+      {isMobile ? (
+        <div className="mobile-overlay">
+          <div className="mobile-content">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+            <h1>Desktop Experience Required</h1>
+            <p>This portfolio is optimized for desktop viewing.</p>
+            <p>Please visit on a laptop or desktop computer for the best experience.</p>
+            <div className="device-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+          </div>
+        </div>
+      ) : isLoading ? (
         <Loader 
           startAnimation={startAnimation} 
           progress={loadingProgress}
