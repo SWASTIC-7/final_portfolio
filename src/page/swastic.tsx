@@ -3,8 +3,9 @@ import Project from '../components/project/project';
 import Contact from '../components/contact/contact';
 import About from '../components/about/About';
 import Home from '../components/home/home';
-
+import SwasyLine from '../components/swasylines/swasy_lines';
 import './Swastic.css'
+
 
 function Swastic() {
   
@@ -13,6 +14,10 @@ function Swastic() {
     <>
       <div className='wrapper'>
       <Home />
+      <SwasyLine 
+  middleImages={['/g1.png']} 
+  repeatCount={6} 
+/>
       <About />
      {/* <Project /> */}
      <Contact />

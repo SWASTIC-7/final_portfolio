@@ -17,6 +17,7 @@ function About() {
   const stripsContainerRef = useRef<HTMLDivElement>(null);
   const manRef = useRef<HTMLDivElement>(null);
   const radarRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const lines = [line1Ref.current, line2Ref.current, line3Ref.current];
@@ -52,12 +53,16 @@ function About() {
       transformOrigin: "center center"
     });
 
-    // Create a timeline for smooth sequential animation - start immediately
-    const tl = gsap.timeline({ 
-      defaults: { ease: "power3.out" }
-    });
+    // Set initial state for strips
+    gsap.set(strips, { x: 0 });
 
-    // Animate strips sliding away
+    // Create a timeline for smooth sequential animation
+    const tl = gsap.timeline({ 
+      defaults: { ease: "power3.out" },
+      paused: true
+    });
+    
+    // Build the animation timeline
     tl.to(strips, {
       x: '100%',
       duration: 1.2,
@@ -67,7 +72,6 @@ function About() {
       },
       ease: "power4.inOut"
     })
-    // Animate first set of lines with stagger
     .to(lines, {
       opacity: 1,
       y: 0,
@@ -75,13 +79,11 @@ function About() {
       duration: 1.2,
       stagger: 0.3,
     }, "-=0.8")
-    // Add a subtle glow effect to first set
     .to(lines, {
       textShadow: "0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)",
       duration: 0.8,
       stagger: 0.2,
     }, "-=0.6")
-    // Animate catchy lines with same effect
     .to(catchyLines, {
       opacity: 1,
       y: 0,
@@ -89,12 +91,28 @@ function About() {
       duration: 1.2,
       stagger: 0.3,
     }, "-=0.3")
-    // Add glow effect to catchy lines
     .to(catchyLines, {
       textShadow: "0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)",
       duration: 0.8,
       stagger: 0.2,
     }, "-=0.6");
+
+    // Create ScrollTrigger that plays the timeline
+    ScrollTrigger.create({
+      trigger: aboutRef.current,
+      start: 'top bottom',
+      once: true,
+      onEnter: () => tl.play()
+    });
+
+    // Pin the About section for a while to let animations play
+    ScrollTrigger.create({
+      trigger: aboutRef.current,
+      start: 'top top',
+      end: '+=150%',
+      pin: true,
+      scrub: false,
+    });
 
     // Cleanup
     return () => {
@@ -104,31 +122,33 @@ function About() {
   }, []);
 
   useEffect(() => {
-    // Set initial state for radar
+    // Set initial state for radar and man
     gsap.set(radarRef.current, {
       opacity: 0,
       scale: 0.5
     });
 
+    gsap.set(manRef.current, { x: 0 });
+
     // Scroll-triggered animation for man
     gsap.to(manRef.current, {
-      x: 100,
+      x: 300,
       scrollTrigger: {
-        trigger: '.About',
-        start: '5% top',
+        trigger: aboutRef.current,
+        start: 'top 20%',
         end: 'bottom top',
         scrub: 1,
       }
     });
 
-    // Scroll-triggered animation for radar - appears at 20%
+    // Scroll-triggered animation for radar
     gsap.to(radarRef.current, {
       opacity: 1,
       scale: 1,
       scrollTrigger: {
-        trigger: '.About',
-        start: '10% top',
-        end: '50% top',
+        trigger: aboutRef.current,
+        start: 'top 20%',
+        end: '50% center',
         scrub: 1,
       }
     });
@@ -139,14 +159,16 @@ function About() {
   }, []);
 
   return (
-    <div className='About' style={{ position: 'relative', overflow: 'hidden' }}>
-            <div ref={stripsContainerRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 100 }}></div>
+    <div className='About' ref={aboutRef} style={{ position: 'relative', overflow: 'hidden' }}>
+        <div ref={stripsContainerRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 100 }}></div>
        
-                <div  className="man-container" ref={manRef}>
-                  <div ref={radarRef}>
-                    <Radar/>
-                  </div>
-                <Man/></div>
+        <div className="man-container" ref={manRef}>
+          <div ref={radarRef}>
+            <Radar/>
+          </div>
+          <Man/>
+        </div>
+
         <div className='About_decription'>
           <h3>
             <span ref={line1Ref} style={{ display: 'inline-block' }}>Every Light counts</span><br/>
@@ -154,6 +176,7 @@ function About() {
             <span ref={line3Ref} style={{ display: 'inline-block' }}>in the dark...</span>
           </h3>
         </div>
+
         <div className='catchy_line'>
           <p>
             <span ref={catchyLine1Ref} style={{ display: 'inline-block' }}>Call me:</span><br/>
