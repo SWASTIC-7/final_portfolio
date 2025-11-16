@@ -34,7 +34,6 @@ export interface CubesProps {
 
 const Cubes: React.FC<CubesProps> = ({
   gridSize = 10,
-  cubeSize,
   maxAngle = 45,
   radius = 3,
   easing = 'power3.out',
@@ -392,8 +391,10 @@ const Cubes: React.FC<CubesProps> = ({
   const cellsCols = Array.from({ length: cols });
   
   const sceneStyle: React.CSSProperties = {
-    gridTemplateColumns: cubeSize ? `repeat(${cols}, ${cubeSize}px)` : `repeat(${cols}, 1fr)`,
-    gridTemplateRows: cubeSize ? `repeat(${rows}, ${cubeSize}px)` : `repeat(${rows}, 1fr)`,
+    // Use fractional columns so cells stretch to fill the container width (100vw).
+    // This makes the grid fill the full viewport width and the .cube aspect-ratio keeps them square.
+    gridTemplateColumns: `repeat(${cols}, 1fr)`,
+    gridTemplateRows: `repeat(${rows}, 1fr)`,
     columnGap: colGap,
     rowGap: rowGap
   };
@@ -401,14 +402,12 @@ const Cubes: React.FC<CubesProps> = ({
     '--cube-face-border': borderStyle,
     '--cube-face-bg': faceColor,
     '--cube-face-shadow': shadow === true ? '0 0 6px rgba(0,0,0,.5)' : shadow || 'none',
-    ...(cubeSize
-      ? {
-          width: `${cols * cubeSize}px`,
-          height: `${rows * cubeSize}px`
-        }
-      : {})
-  } as React.CSSProperties;
-
+    // Force wrapper to span full viewport width so cubes occupy 100vw.
+    width: '100vw',
+    maxWidth: '100vw',
+    boxSizing: 'border-box'
+   } as React.CSSProperties;
+   
   return (
     <div className="default-animation" style={wrapperStyle}>
       <div ref={sceneRef} className="default-animation--scene" style={sceneStyle}>

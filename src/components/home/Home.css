@@ -14,5 +14,6 @@
 }
 .Name_model img {
     transform: translateY(-70%);
-    filter: grayscale(100%)
+    filter: grayscale(100%);
+    width: 100%;
 }

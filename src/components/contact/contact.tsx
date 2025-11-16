@@ -38,7 +38,7 @@ const logoLinks: Record<string, string> = {
 };
 
 export const Contact = () => (
-  <div className="Contact" style={{ margin: 0,height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', position: 'relative', background: '#000' }}>
+  <div className="Contact" style={{ margin: '0',height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', position: 'relative', background: '#000' }}>
     <Cubes 
       cubeSize={25}
       maxAngle={120}
