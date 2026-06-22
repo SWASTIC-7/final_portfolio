@@ -60,16 +60,46 @@ function Swastic() {
   }, []);
 
   useEffect(() => {
-    // Setup audio but don't autoplay (will wait for user interaction)
-    if (!audioRef.current) return;
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.5;
+    const el = audioRef.current;
+    if (!el) return;
+    el.loop = true;
+    el.volume = 0.5;
+
+    // Browsers block autoplaying audio with sound until the user has interacted
+    // with the page. So we try to play immediately, and if that's rejected we
+    // start playback on the user's first interaction. The on-screen button stays
+    // as a manual fallback either way.
+    const gestureEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+
+    const removeGestureListeners = () => {
+      gestureEvents.forEach(ev => window.removeEventListener(ev, startOnGesture));
+    };
+
+    const startOnGesture = () => {
+      el.play()
+        .then(() => {
+          setIsPlaying(true);
+          removeGestureListeners();
+        })
+        .catch(() => {
+          /* keep waiting for a usable gesture */
+        });
+    };
+
+    // Attempt true autoplay on open.
+    el.play()
+      .then(() => setIsPlaying(true))
+      .catch(() => {
+        // Autoplay was blocked — arm a one-shot starter on first interaction.
+        gestureEvents.forEach(ev =>
+          window.addEventListener(ev, startOnGesture, { passive: true })
+        );
+      });
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
+      removeGestureListeners();
+      el.pause();
+      el.currentTime = 0;
     };
   }, []);
 

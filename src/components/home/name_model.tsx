@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import { Group, PointLight,Vector2 } from 'three';
+import { Group, PointLight, Vector2, Vector3 } from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -95,42 +95,53 @@ function Logo({ url }: LogoProps) {
 function CursorLight() {
   const lightRef = useRef<PointLight | null>(null);
   const { camera, raycaster, scene } = useThree();
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const mouseVec = useRef(new Vector2());
+  const pointer = useRef({ x: 0, y: 0 });
+  // The recomputed light target, and a flag set only when the mouse actually moves.
+  const target = useRef(new Vector3());
+  const hasTarget = useRef(false);
+  const dirty = useRef(false);
 
   useFrame(() => {
-    if (lightRef.current) {
-      // Normalize mouse coordinates
-      const x = (mousePos.x / window.innerWidth) * 2 - 1;
-      const y = -(mousePos.y / window.innerHeight) * 2 + 1;
-      
-      // Update Vector2 and set raycaster from camera through mouse position
+    const light = lightRef.current;
+    if (!light) return;
+
+    // Only raycast when the cursor moved — not on every frame. The previous code
+    // raycast the whole scene 60x/sec even while idle/scrolling, which pinned a
+    // CPU core and dragged the entire page down.
+    if (dirty.current) {
+      dirty.current = false;
+      const x = (pointer.current.x / window.innerWidth) * 2 - 1;
+      const y = -(pointer.current.y / window.innerHeight) * 2 + 1;
       mouseVec.current.set(x, y);
       raycaster.setFromCamera(mouseVec.current, camera);
-      
-      // Get intersection point or position along ray
+
       const intersects = raycaster.intersectObjects(scene.children, true);
-      
       if (intersects.length > 0) {
-        // If we hit something, place light at intersection
-        lightRef.current.position.copy(intersects[0].point);
-        // Move light slightly away from surface (guard face)
+        target.current.copy(intersects[0].point);
         if (intersects[0].face) {
-          lightRef.current.position.add(intersects[0].face.normal.clone().multiplyScalar(2));
+          target.current.add(intersects[0].face.normal.clone().multiplyScalar(2));
         }
       } else {
-        // If no intersection, place light along the ray
         const dir = raycaster.ray.direction.clone();
-        const distance = 20;
-        lightRef.current.position.copy(camera.position.clone().add(dir.multiplyScalar(distance)));
+        target.current.copy(camera.position).add(dir.multiplyScalar(20));
       }
+      hasTarget.current = true;
+    }
+
+    // Smoothly ease the light toward its target each frame (cheap, no raycast).
+    if (hasTarget.current) {
+      light.position.lerp(target.current, 0.15);
     }
   });
 
-  // Track mouse position
+  // Track the cursor via a ref + dirty flag — no React state, so moving the mouse
+  // no longer re-renders the whole Canvas subtree.
   React.useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      pointer.current.x = e.clientX;
+      pointer.current.y = e.clientY;
+      dirty.current = true;
     };
 
     window.addEventListener('mousemove', handleMouseMove);

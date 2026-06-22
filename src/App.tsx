@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Swastic from './page/swastic'
 import Project from './components/project/project'
 import Blog from './components/blog/blog'
 import './App.css'
 import Loader from './page/loader'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -122,19 +126,25 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (!isLoading) {
-      const lenis = new Lenis()
+    if (isLoading) return
 
-      function raf(time: number) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
-      }
+    const lenis = new Lenis()
 
-      requestAnimationFrame(raf)
+    // Keep ScrollTrigger's scroll position in sync with Lenis' smoothed scroll.
+    lenis.on('scroll', ScrollTrigger.update)
 
-      return () => {
-        lenis.destroy()
-      }
+    // Drive Lenis from GSAP's single ticker instead of a second, competing rAF
+    // loop. Two unsynced loops is what made pinned/scrubbed sections stutter and
+    // the smooth scrolling feel broken.
+    const update = (time: number) => {
+      lenis.raf(time * 1000) // GSAP ticker time is in seconds; Lenis wants ms.
+    }
+    gsap.ticker.add(update)
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      gsap.ticker.remove(update)
+      lenis.destroy() // also detaches the 'scroll' listener above
     }
   }, [isLoading])
 
