@@ -2,6 +2,10 @@ import { T } from './text'
 
 const BLOG = 'https://swastic-7.github.io/sw4sy-Bl0gs'
 
+/** Accepted version (camera-ready) with the IEEE personal-use notice stamped on page 1.
+ *  Once the paper is on IEEE Xplore, add its DOI next to the link (IEEE posting policy). */
+const NPSC_PAPER = '/papers/keshari-npsc2026-label-free-warm-start-nr.pdf'
+
 const CONTACT = [
   { label: 'email', href: 'mailto:official.swastic@gmail.com' },
   { label: 'github', href: 'https://github.com/SWASTIC-7' },
@@ -71,10 +75,17 @@ export default function CV() {
           <div className="rv cv-item">
             <div className="cv-head">
               <h3>
-                <T>Label-Free Warm-Start Learning for Newton–Raphson Power Flow</T>
+                <Ext href={NPSC_PAPER}>Label-Free Warm-Start Learning for Newton–Raphson Power Flow</Ext>
               </h3>
               <span className="cv-when">
                 <T>Accepted, NPSC 2026</T>
+                {' '}
+                <T>/</T>{' '}
+                <a href={NPSC_PAPER} target="_blank" rel="noopener noreferrer" aria-label="Paper PDF (accepted version)">
+                  <span className="cv-ul-on">
+                    <T>pdf</T>
+                  </span>
+                </a>
               </span>
             </div>
             <p className="cv-sub">
