@@ -6,7 +6,7 @@ const CONTACT = [
   { label: 'email', href: 'mailto:official.swastic@gmail.com' },
   { label: 'github', href: 'https://github.com/SWASTIC-7' },
   { label: 'linkedin', href: 'https://www.linkedin.com/in/swastic-keshari-77418827a/' },
-  { label: 'x', href: 'https://x.com/swastic_07' },
+  { label: 'x', href: 'https://x.com/Sw4sy__' },
   { label: 'blog', href: `${BLOG}/` },
 ]
 
